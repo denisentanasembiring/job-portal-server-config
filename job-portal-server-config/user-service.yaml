@@ -1,0 +1,61 @@
+server:
+  port: 8000
+  servlet:
+    context-path: /api
+  compression:
+    enabled: true
+
+spring:
+  jpa:
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate:
+        naming:
+          strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        enable_lazy_load_no_trans: true
+        id:
+          new_generator_mappings: true
+    defer-datasource-initialization: true
+    generate-ddl: true
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/jdbuser?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+    Hikari:
+      connectionTimeout: 5000
+      maximumPoolSize: 5
+  Jackson:
+    serialization:
+      INDENT_OUTPUT: true
+    time-zone: UTC
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 1MB
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+#Eureka
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:7861/eureka/
+  instance:
+    prefer-ip-address: true
